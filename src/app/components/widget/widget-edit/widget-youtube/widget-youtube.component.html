@@ -1,0 +1,53 @@
+<nav class="navbar bg-light-1 fixed-top">
+	<a class="btn btn" routingLink="/user/:uid/website/wid/page/:pid/widget" class="sw-gray">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+  <div class="sw-width">
+	<a class="float-left sw-no-underline" routingLink="#"><b>Widget Edit</b></a>
+  </div>
+	<a routingLink="/user/:uid/website/wid/page/:pid/widget" class="sw-font-black float-left ">
+    <i class="fas fa-check"></i>
+	</a>
+</nav>
+  <div class="container-fluid">
+ <form class="Container">
+
+	  <div class="form-group">
+ 	   <label>Name</label>
+	   <Input type="text" name="username"  class="form-control"> 
+      </div>
+	
+	  <div class="form-group">
+	   <label>Text</label>
+	   <input type="text" name="email"  class="form-control"> 
+	  </div>
+        
+      <div class="form-group">
+       <label>URL</label>
+       <input type=text" name="URL" placeholder="https://www.image.com" class="form-control">
+      </div> 
+		
+	  <div class="form-group">
+	   <label for="Width">Width</label>
+	   <input type="text" name="Width" class="form-control"> 
+	  </div>
+
+	  
+	
+	        
+	        <a class="btn btn-success btn btn-danger btn-block" routingLink="/user/:uid/website/wid/page/:pid/widget">Delete</a>
+  </form>
+</div>
+
+
+ <nav class="navbar navbar-dark bg-light-1 fixed-bottom ">
+
+
+	<a class="navbar-brand " routingLink="/user/:uid/website/new"></a>
+	<a class=" sw-width sw-font-black" routingLink="/user/:uid/website/new"><i class="fas fa-user float-right" ></i></a>
+
+
+
+
+
+</nav>

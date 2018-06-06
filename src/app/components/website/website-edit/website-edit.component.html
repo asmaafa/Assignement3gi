@@ -1,62 +1,61 @@
 <nav  class="row navbar navbar-dark bg-primary fixed-top ">
 <div class="col-sm-4"> 
 	<div class=container-fluid>
-	<a class="sw-font-white" routerLink="/user/:uid/website"><i class="fas fa-chevron-left"></i></a>
-	<a class="sw-no-underline" routerLink="/user/:uid/website"><b class="sw-font-white">Websites</b></a>
+	<a class="sw-font-white" routerLink="/user/{{uid}}/website"><i class="fas fa-chevron-left"></i></a>
+	<a class="sw-no-underline" routerLink="/user/{{uid}}/website"><b class="sw-font-white">Websites</b></a>
 
-	<a routerLink="/user/:uid/website/new" class="sw-font-white float-right"><i class="fas fa-plus"></i></a>
+	<a routerLink="/user/{{uid}}/website/new" class="sw-font-white float-right"><i class="fas fa-plus"></i></a>
 			</div>
 		</div>
 
 
 	<div class="col-sm-8"> 
 	<div class=container-fluid>
-    <a class="sw-no-underline" routerLink="/user/:uid/website" ><b class="sw-font-white">Edit Website</b></a>
+    <a class="sw-no-underline" routerLink="/user/{{uid}}/website/{{wid}}" ><b class="sw-font-white">Edit Website</b></a>
 
-    <a routerLink="/user/:uid/website" class="sw-font-white float-right"><i class="fas fa-check"></i></a>
+    <button class="btn sw-font-white float-right " type="submit" form="websiteForm"><i class="fas fa-check"></i></button>
 			</div>
 		</div>
 	</nav>
 	<!-- left websitelist -->
 
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="container-fluid">
-				 <br>
-					<ul class="list-group">
-		
-			 	
-		<li class="list-group-item"><a routerLink="/user/:uid/website/wid/page">Adress Book App</a><a routerLink="/user/:uid/website/:wid"><i class="fas fa-cog fa-spin float-right"></i></a></li>
-         <li class="list-group-item"><a routerLink="/user/:uid/website/wid/page">Blogger</a><a routerLink="/user/:uid/website/:wid"><i class="fas fa-cog fa-spin float-right"></i></a></li>
-         <li class="list-group-item"><a routerLink="/user/:uid/website/wid/page">Blogging App</a><a routerLink="/user/:uid/website/:wid"><i class="fas fa-cog fa-spin float-right"></i></a></li>
-         <li class="list-group-item"><a routerLink="user/:uid/website/wid/page">Script Testing App</a><a routerLink="/user/:uid/website/:wid"><i class="fas fa-cog fa-spin float-right"></i></a></li>
-			 </ul>
-			</div>
-		</div>
-	<!-- right side form -->
-	<div class="col-sm-8">
-		<div class="container-fluid">
-			<form>
-				<!-- website name -->
-				
-					<div class="form-group">
-						<label for="website-name"><b> Website Name</b></label>
-					
-							<input class="form-control" type="text" name="website-name" placeholder="type your website name">
-					</div>
-						<!-- website description -->
-
-<div class="form-group">
-<label for="website-description"> Website Description</label>
+<div class="row">
+<div class="col-sm-4">
+<div class="container-fluid">
 <br>
-<textarea class="form-control" rows="5" placeholder="Description">
-	
-</textarea><br><a class= "btn btn-danger btn-block"  routerLink="/user/:uid/website">Delete</a>
-						</div>
-					<!-- </div> -->
-			</form>
-		</div>
-	</div>
+	<ul class="list-group">
+		
+<li class="list-group-item" *ngFor ="let  website of websites">
+ <a routerLink="/user/{{uid}}/website/{{website._id}}/page">{{website.name}}</a><a routerLink="/user/{{uid}}/website/{{wid}}"><i class="fas fa-cog fa-spin float-right"></i></a></li>
+	</ul>
+</div>
+</div>
+	<!-- right side form -->
+<div class="col-sm-8">
+<div class="container-fluid">
+<form id="websiteForm" (ngSubmit)="update()" #f="ngForm">
+	<!-- website name -->
+				
+<div class="form-group">
+<label for="website-name"><b>Name</b></label>
+
+<input class="form-control" type="text" name="name" placeholder="type your website name" requires ngModel="{{website.name}}" #name="ngModel">
+</div>
+<div class=" alert alert-warning" *ngIf="name.invalid && name.touched" >Name cannot be empty</div>
+		<!-- website description -->
+
+ <div class="form-group">
+<label for="website-description">Description</label>
+<br>
+<textarea  rows="5" class="form-control" name="description" placeholder="Describe your website here" ngModel="{{website.description}}" #description="ngModel"></textarea> 
+</div>
+		<!-- </div> -->
+
+<button  type="button" (click)= "delete()" class="btn btn-danger">Delete</button>
+<button [disabled]= "f.invalid" type="submit"  class="btn btn-primary  float-right">Update</button>	
+</form>
+</div>
+</div>
 </div>
 
 

@@ -42,3 +42,11 @@ background-color:#cecece;
 .list-class li {
 	list-style: none;
 }
+
+.sw-button-tp-a{
+	background-color: transparent;
+}
+
+.sw-front{
+	z-index: 2
+}

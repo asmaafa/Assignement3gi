@@ -42,7 +42,7 @@ users: User[] = [
      }
 
     }
-  updateUser(userId: String, user: User) { 
+  updateUser(userId: string, user: User) { 
       var oldUser = this.findUserById(userId);
       var index = this.users.indexOf(oldUser);
 
@@ -52,7 +52,7 @@ users: User[] = [
       this.users[index].lastName = user.lastName;
       this.users[index].email = user.email;
     }
-  deleteUser(userId:String) {
+  deleteUser(userId:string) {
      var oldUser = this.findUserById(userId);
      var index = this.users.indexOf(oldUser);
      this.users.splice(index,1)

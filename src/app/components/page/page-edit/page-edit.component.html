@@ -1,10 +1,10 @@
 <nav class="navbar navbar-dark bg-light-1 fixed-top">
-	<a class="btn btn" routerLink="/user/:uid/website/wid/page" class="sw-black"><i class="fas fa-chevron-left"></i></a>
+	<a class="btn btn" routerLink="/user/{{uid}}/website/{{wid}}/page" class="sw-black"><i class="fas fa-chevron-left"></i></a>
  <div class="sw-width">
-	<a class="float-left sw-no-underline" routerLink="/user/:uid/website/wid/page/:pid"><b>Edit Page</b></a>
+	<a class="float-left sw-no-underline" routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}"><b>Edit Page</b></a>
  </div>
  
-<a routerLink="/user/:uid/website/wid/page" class="sw-font-black"><i class="fas fa-check sw-absolute-right"></i></a>
+<button type="submit" [disabled]="f.invalid" form="pageForm" class=" btn sw-button-to-a sw-font-black sw-absolute-right"><i class="fas fa-check "></i></button>
 
 </nav>
 
@@ -12,25 +12,23 @@
 
 <div class="container-fluid">
 <br>
-				
+ <form id="pageForm" (ngSubmit)="update()" #f="ngForm">	
 <div class="form-group">
-<label for="website-name"><b>Name</b></label>
+<label ><b>Name</b></label>
 					
-<input class="form-control" type="text" name="Name" placeholder="Blog Post">
+<input class="form-control" required ngModel="{{page.name}}" #name="ngModel" type="text" name="name" placeholder= "Enter your Page Name" value="Blog Post">
 </div>
 <!-- website description -->
+<div *ngIf="name.invalid && name.touched" class="alert alert-info">Name cannot be Empty</div>	
 <div class="form-group">
-<label for="website-name"><b>Title</b></label>
+<label ><b>Description</b></label>
 					
-<input class="form-control" type="text" name="Title" placeholder="Page Title"><br>
-<a class= "btn btn-danger btn-block"  routerLink="/user/:uid/website/wid/page">Delete</a>
+<input class="form-control" ngModel="{{page.description}}" type="text" name="description" placeholder="Enter your Page Description" value="Blog"></div><br>
+<button class= "btn btn-primary btn-block" [disabled]="f.invalid" type="submit">Update</button>
+<button class= "btn btn-danger btn-block" (click)="remove()">Delete</button>
 
-</div>
+</form>	
 <nav class="navbar navbar-dark bg-light-1 fixed-bottom ">
-<a class=" sw-width-1 sw-font-white" routerLink="/uid"><i class="fas fa-user float-right" ></i></a>
-
-
-
-
+<a class=" sw-width-1 sw-font-white" routerLink="/user/{{uid}}"><i class="fas fa-user float-right" ></i></a>
 
 </nav>

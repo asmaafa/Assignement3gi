@@ -56,7 +56,7 @@ websites:Website[] = [
      
 
    }
-  deleteWbsite(websiteId:string) { 
+  deleteWebsite(websiteId:string) { 
        var Web = this.findWebsiteById(websiteId);
        var index = this.websites.indexOf(Web);
         this.websites.splice(index,1)

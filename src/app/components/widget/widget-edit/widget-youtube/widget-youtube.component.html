@@ -1,53 +1,45 @@
 <nav class="navbar bg-light-1 fixed-top">
-	<a class="btn btn" routingLink="/user/:uid/website/wid/page/:pid/widget" class="sw-gray">
-      <i class="fas fa-chevron-left"></i>
-    </a>
+<a class="sw-color-black" routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget" class="sw-gray">
+ <i class="fas fa-chevron-left"></i>
+</a>
   <div class="sw-width">
-	<a class="float-left sw-no-underline" routingLink="#"><b>Widget Edit</b></a>
+	<a class="float-left sw-no-underline" routerLink="user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/new"><b>Widget Edit</b></a>
   </div>
-	<a routingLink="/user/:uid/website/wid/page/:pid/widget" class="sw-font-black float-left ">
-    <i class="fas fa-check"></i>
-	</a>
+	<button [disabled]="f.invalid" type="submit" form="widgetForm" class="btn sw-button-to-a sw-color-black float-right" ><i class="fas fa-check"></i></button>
 </nav>
   <div class="container-fluid">
- <form class="Container">
+ <form  id="widgetForm" (ngSubmit)="update()" #f="ngForm">
 
 	  <div class="form-group">
  	   <label>Name</label>
-	   <Input type="text" name="username"  class="form-control"> 
+	   <Input class="form-control"type="text" name="name" ngModel="{{widget.name}}" #name="ngModel" placeholder="Enter your widget name..." > 
       </div>
 	
 	  <div class="form-group">
 	   <label>Text</label>
-	   <input type="text" name="email"  class="form-control"> 
+	   <input class="form-control" type="text" name="text" ngModel="{{widget.text}}" #text="ngModel" placeholder="Enter your widget text...">
 	  </div>
         
       <div class="form-group">
        <label>URL</label>
-       <input type=text" name="URL" placeholder="https://www.image.com" class="form-control">
+       <input class="form-control" required ngModel="{{widget.url}}" #url="ngModel" type="text" name="url" placeholder="https://www.google.com">
       </div> 
 		
 	  <div class="form-group">
 	   <label for="Width">Width</label>
-	   <input type="text" name="Width" class="form-control"> 
+	   <input class="form-control" required ngModel="{{widget.width}}" #width="ngModel"  type="text" name="width" placeholder="100%">
+	   
 	  </div>
 
-	  
+	  <div class="alert alert-danger" *ngIf="width.invalid && width.touched">Width can't be empty!</div>
 	
-	        
-	        <a class="btn btn-success btn btn-danger btn-block" routingLink="/user/:uid/website/wid/page/:pid/widget">Delete</a>
+	   <button  type="submit" [disabled]="f.invalid" class="btn btn-primary btn-block">Submit</button>
+	   <button  type="button" (click)="remove()" class="btn btn-danger btn-block">Delete</button>
   </form>
 </div>
 
 
  <nav class="navbar navbar-dark bg-light-1 fixed-bottom ">
-
-
-	<a class="navbar-brand " routingLink="/user/:uid/website/new"></a>
-	<a class=" sw-width sw-font-black" routingLink="/user/:uid/website/new"><i class="fas fa-user float-right" ></i></a>
-
-
-
-
+  <a class=" sw-width sw-font-black" routerLink="/user/{{uid}}"><i class="fas fa-user float-right" ></i></a>
 
 </nav>

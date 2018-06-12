@@ -23,21 +23,36 @@ export class ProfileComponent implements OnInit {
  oldUsername: string;
  usernameTaken: boolean;
  submitSuccess: boolean;
+ aUser: User;
+
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
  
-   
+     this.usernameTaken = false;
+      this.submitSuccess = false;
    this.activatedRoute.params.subscribe(
    	params=>{
+
+
    		this.uid = params['uid'];
-   		this.user = this.userService.findUserById(this.uid);
-   		this.username = this.user.username;
-       console.log(this.username);
-   		this.email = this.user.email;
-      this.firstName = this.user.firstName;
-      this.lastName = this.user.lastName;
-      this.oldUsername = this.user.username;
+      this.userService.findUserById(this.uid).subscribe(
+      (user: User) =>{
+
+      this.username = user.username;
+      this.email = user.email;
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.oldUsername = user.username; 
+             }
+        );
+   		// this.user = this.userService.findUserById(this.uid);
+   		// this.username = this.user.username;
+     //   console.log(this.username);
+   		// this.email = this.user.email;
+     //  this.firstName = this.user.firstName;
+     //  this.lastName = this.user.lastName;
+     //  this.oldUsername = this.user.username;
    	})
   } 
 
@@ -47,7 +62,16 @@ update(){
    this.firstName = this.profileForm.value.firstName;
    this.lastName = this.profileForm.value.lastName;
    
-   const aUser = this.userService.findUserByUsername(this.username);
+  this.userService.findUserByUsername(this.username).subscribe(
+
+       (user: User)=>{
+       this.aUser = user;
+
+        
+
+    }
+    );
+
     if(aUser && this.oldUsername !== this.username){
     	this.usernameTaken = true;
     	this.submitSuccess = false;
@@ -61,11 +85,16 @@ update(){
     	lastName:this.lastName,
     	email:this.email,
 
-        
+     };
+        this.userService.updateUser(this.uid, updatedUser).subscribe(
+          (user2: User)=>{
+              this.usernameTaken = false;
+              this.submitSuccess = true;
 
-    }
-        this.usernameTaken = false;
-    	  this.submitSuccess = true;   
+          }
+
+          );
+          
     }
     }
 }

@@ -1,68 +1,85 @@
 import { Injectable } from '@angular/core';
 import{Widget} from '../models/widget.model.client'
+import { map } from "rxjs/operators";
+import {Http, Response} from '@angular/http';
+import { environment} from '../../environments/environment';
+
 @Injectable()
 
 export class WidgetService {
 
-  constructor() { }
+  baseUrl = environment.baseUrl;
 
-widgets:Widget[] = [
-  { _id: "123", widgetType: "HEADING", pageId: "321", size: 2, text: "GIZMODO"},
-  { _id: "234", widgetType: "HEADING", pageId: "321", size: 4, text: "Lorem ipsum"},
-  { _id: "345", widgetType: "IMAGE", pageId: "321", width: "100%", url: "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
-  { _id: "456", widgetType: "HTML", pageId: "321", text: "<p>Lorem ipsum</p>"},
-  { _id: "567", widgetType: "HEADING", pageId: "321", size: 4, text: "Lorem ipsum"},
-  { _id: "678", widgetType: "YOUTUBE", pageId: "321", width: "100%", url: "https://youtu.be/AM2Ivdi9c4E" },
-  { _id: "789", widgetType: "HTML", pageId: "321", text: "<p>Lorem ipsum</p>"}
+  constructor(private http:Http) { }
 
-]
+
 
 
   createWidget(pageId:string,widget:Widget) {
-    widget._id = Math.floor(Math.random()*Math.floor(10000)).toString();
-    widget.pageId = pageId;
-    this.widgets.push(widget);
+    const url = this.baseUrl + '/api/page/'+ pageId +'/widget'
+    return this.http.post(url,widget).pipe(map(
 
-    return widget;
+      (response: Response)=>{
+
+        return response.json(); 
+      }
+      
+
+      ));
   }
 
-  findWidgetBypageId(pageId: string) {
+
+
+  findWidgetsBypageId(pageId: string) {
     
-    var result=[];
-    for (let a = 0; a< this.widgets.length; a++) {
-      if (this.widgets[a].pageId === pageId) {  
-        result.push(this.widgets[a]); 
+    const url = this.baseUrl + '/api/page/'+ pageId +'/widget';
+
+    return this.http.get(url).pipe(map(
+      (response: Response)=>{
+
+        return response.json();
+
       }
-    }
-     return result;
+      ));
   }
 
 
   findWidgetById(widgetId: string) { 
-    for (let a=0; a< this.widgets.length; a++){
-      if (this.widgets[a]._id=== widgetId) {
-       return this.widgets[a];
+    const url = this.baseUrl + '/api/widget/'+ widgetId;
+
+    return this.http.get(url).pipe(map(
+      (response: Response)=>{
+
+        return response.json();
+
       }
-    } 
-  } 
+      ));
+  }
 
   updateWidget(widgetId: string, widget:Widget) {
-      var oldwidget = this.findWidgetById(widgetId);
-      var index = this.widgets.indexOf(oldwidget);
+       const url = this.baseUrl + '/api/widget/' + widgetId;
 
-      this.widgets[index].size = widget.size;
-      this.widgets[index].text = widget.text;
-      this.widgets[index].width = widget.width;
-      this.widgets[index].url = widget.url;
-    
-     
+     return this.http.put(url,widget).pipe(map(
+          (response: Response)=>{
+
+            return response.json();
+          }
+
+       ));
 
    }
+     
+
+   
   deleteWidget(widgetId :string) { 
-       var oldwidget = this.findWidgetById(widgetId);
-       var index = this.widgets.indexOf(oldwidget);
-        this.widgets.splice(index,1)
+    const url = this.baseUrl +  '/api/widget/' + widgetId;
 
+     return this.http.delete(url).pipe(map(
+          (response: Response)=>{
 
-     }   
+            return response.json();
+          }
+
+       ));
+  }
 }

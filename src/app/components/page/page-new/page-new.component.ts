@@ -41,8 +41,13 @@ const newPage: Page = {
 	websiteId:this.wid,
 	description:this.description,
 }
- this.pageService.createPage(this.wid,newPage);
- this.router.navigate(['user', this.uid, 'website',this.wid,'page']);
+ this.pageService.createPage(this.wid,newPage).subscribe(
+    (page: Page)=>{
+
+    this.router.navigate(['user', this.uid, 'website',this.wid,'page']);
+    }
+   );
+ 
 }
 
 }

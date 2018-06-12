@@ -22,7 +22,12 @@ export class WidgetListComponent implements OnInit {
   		this.uid = params['uid'];
   		this.wid = params['wid'];
   		this.pid = params['pid'];
-  		this.widgets = this.widgetService.findWidgetBypageId(this.pid);
+  	this.widgetService.findWidgetsBypageId(this.pid).subscribe(
+     (widgets: Widget[])=>{
+       this.widgets = widgets;
+     }
+
+      );
   	
   })
 

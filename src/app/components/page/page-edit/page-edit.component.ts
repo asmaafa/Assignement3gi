@@ -17,7 +17,12 @@ export class PageEditComponent implements OnInit {
   pid:string;
   name:string;
   description: string;
-  page:Page;
+  page:Page= {
+    _id:"",
+    websiteId: "",
+    name: "",
+    description:""
+  };
 
   constructor(private pageService: PageService, private activatedRoute: ActivatedRoute,private router:Router) { }
 
@@ -31,10 +36,15 @@ export class PageEditComponent implements OnInit {
    	this.uid = params['uid'];
    	this.wid = params['wid'];
    	this.pid = params['pid'];
-    this.page = this.pageService.findPageById(this.pid);
-    this.name = this.page.name;
-    this.description= this.page.description;
+    this.pageService.findPageById(this.pid).subscribe(
+      (page: Page)=>{
+        this.page = this.page;
+        this.name = this.page.name;
+        this.description= this.page.description;
  
+      }
+      );
+    
   });
 
 }
@@ -50,13 +60,24 @@ this.name = this.pageForm.value.name;
     }
 
       
-     this.pageService.updatePage(this.pid,updatedpage );
-     this.router.navigate(['user',this.uid,'website']);
+     this.pageService.updatePage(this.pid,updatedpage ).subscribe(
+       (page: Page)=>{
+
+        this.router.navigate(['user',this.uid,'website']); 
+       }
+
+       );
+     
 }
 
 remove(){
 
-   this.pageService.deletePage(this.pid);
-   this.router.navigate(['user',this.uid,'website']);
+   this.pageService.deletePage(this.pid).subscribe(
+     (pages: Page[])=>{
+
+       this.router.navigate(['user',this.uid,'website']);
+     }
+     );
+   
   }
 }

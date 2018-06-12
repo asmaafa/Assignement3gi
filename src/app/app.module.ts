@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+import { HttpModule} from '@angular/http';
+import { Routing} from './app.routing'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -49,7 +51,9 @@ import { WidgetService } from './services/widget.service.client';
   imports: [
     BrowserModule,
     Routing,
-    FormsModule
+    FormsModule,
+    HttpModule
+
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]
